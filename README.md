@@ -18,7 +18,7 @@ https://github.com/0xcaff/workers-react-server/blob/20f4bef9356df59e3305b04fe0a5
 Whenever we encounter an import of a client component, we replace the contents
 of the import with a stub which marks the component as a client component.
 
-https://github.com/0xcaff/workers-react-server/blob/20f4bef9356df59e3305b04fe0a54a8e2f152cb5/scripts/build.ts#L22-L49
+https://github.com/0xcaff/workers-react-server/blob/20f4bef9356df59e3305b04fe0a54a8e2f152cb5/scripts/build.ts#L30-L47
 
 Next, we build a client bundle for each client component along with the client
 shell bootstrap.
@@ -27,7 +27,7 @@ https://github.com/0xcaff/workers-react-server/blob/20f4bef9356df59e3305b04fe0a5
 
 Finally, we tie the client bundle identifiers to the client bundles here
 
-https://github.com/0xcaff/workers-react-server/blob/20f4bef9356df59e3305b04fe0a54a8e2f152cb5/src/worker.ts#L36-L57
+https://github.com/0xcaff/workers-react-server/blob/20f4bef9356df59e3305b04fe0a54a8e2f152cb5/src/worker.ts#L17-L38
 
 When a user visits the app, they will first see this index.html
 
