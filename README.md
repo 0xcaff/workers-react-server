@@ -5,9 +5,9 @@ Workers.
 
 ## why
 
-would you like to use react server components without attaching yourself to a
-framework like nextjs? want to have some of the features of vercel without the
-lock in or cost?
+maybe you'd like to use react server components without attaching yourself to a
+framework like nextjs. maybe you want to have some of the features of vercel
+without the lock in or cost.
 
 ## how
 
