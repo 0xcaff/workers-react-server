@@ -58,6 +58,10 @@ https://github.com/0xcaff/workers-react-server/blob/20f4bef9356df59e3305b04fe0a5
 
 * for .client.tsx files, only default exports are supported as an export.
 
+* SSR is not supported, not sure how to get react server components to render in
+  an SSR'd way. I'm guessing as soon as the first suspense fallbacks render, the
+  HTML is somehow taken and sent in the initial client shell.
+
 ## inspo
 
 * https://github.com/bholmesdev/simple-rsc
