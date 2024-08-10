@@ -57,3 +57,8 @@ https://github.com/0xcaff/workers-react-server/blob/20f4bef9356df59e3305b04fe0a5
   nextjs implements this.
 
 * for .client.tsx files, only default exports are supported as an export.
+
+## inspo
+
+* https://github.com/bholmesdev/simple-rsc
+* https://github.com/reactjs/server-components-demo
