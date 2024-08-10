@@ -9,3 +9,12 @@ command = "yarn build-worker"
 
 [site]
 bucket = "./dist/frontend"
+
+[[migrations]]
+tag = "v1" # Should be unique for each entry
+new_classes = ["HitCounter"]
+
+[durable_objects]
+bindings = [
+    { name = "HIT_COUNTER", class_name = "HitCounter" }
+]

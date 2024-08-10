@@ -9,7 +9,7 @@ async function main() {
   const clientEntrypoints = new Set<string>();
 
   await esbuild.build({
-    external: ["__STATIC_CONTENT_MANIFEST", "node:async_hooks"],
+    external: ["__STATIC_CONTENT_MANIFEST", "node:async_hooks", "cloudflare:workers"],
     bundle: true,
     sourcemap: true,
     outfile: "dist/backend/worker.js",

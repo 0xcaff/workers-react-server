@@ -5,16 +5,12 @@ import React from "react";
 import dedent from "dedent";
 import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
+import {Env} from "./env";
 
 const assetManifest = JSON.parse(manifestJSON);
 
-interface Env {
-  __STATIC_CONTENT: KVNamespace;
-}
-
 export default {
   async fetch(request, env, ctx) {
-    console.log(assetManifest);
     const url = new URL(request.url);
     switch (url.pathname) {
       case "/": {
@@ -51,8 +47,10 @@ export default {
             ]),
         );
 
-        // @ts-ignore
-        const Component = React.createElement(Page);
+        const Component = React.createElement(Page, {
+            env
+        });
+
         const stream = ReactServerDom.renderToReadableStream(
           Component,
           clientAssets,
@@ -81,3 +79,5 @@ export default {
     }
   },
 } satisfies ExportedHandler<Env>;
+
+export { HitCounter } from './HitCounter';
