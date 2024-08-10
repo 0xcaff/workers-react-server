@@ -5,7 +5,7 @@ import React from "react";
 import dedent from "dedent";
 import manifestJSON from "__STATIC_CONTENT_MANIFEST";
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
-import {Env} from "./env";
+import { Env } from "./env";
 
 const assetManifest = JSON.parse(manifestJSON);
 
@@ -13,31 +13,12 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     switch (url.pathname) {
-      case "/": {
-        return new Response(
-          dedent`
-                <!DOCTYPE html>
-	            <html>
-	            <body>
-	            	<div id="root"></div>
-	            	<script type="module" src="/client.js"></script>
-	            </body>
-	            </html>
-            `,
-          {
-            headers: {
-              "content-type": "text/html",
-            },
-          },
-        );
-      }
-
       case "/render": {
         const clientAssets = Object.fromEntries(
           Object.keys(assetManifest)
             .filter((it) => it.endsWith(".client.js"))
             .map((key) => [
-              key.slice(0, -3),
+              key.slice(0, -".js".length),
               {
                 id: `/${key}`,
                 name: "default",
@@ -48,7 +29,7 @@ export default {
         );
 
         const Component = React.createElement(Page, {
-            env
+          env,
         });
 
         const stream = ReactServerDom.renderToReadableStream(
@@ -56,11 +37,33 @@ export default {
           clientAssets,
         );
         return new Response(stream, {
+          // Required to ensure response streams. If not specified, Workers
+          // waits for response to complete before sending the first bytes to
+          // client.
           headers: {
             "content-type": "text/plain;charset=UTF-8",
             "content-encoding": "identity",
           },
         });
+      }
+
+      case "/": {
+        return new Response(
+          dedent`
+            <!DOCTYPE html>
+	        <html>
+	        <body>
+	          <div id="root"></div>
+	          <script type="module" src="/client.js"></script>
+	        </body>
+	        </html>
+            `,
+          {
+            headers: {
+              "content-type": "text/html",
+            },
+          },
+        );
       }
 
       default:
@@ -80,4 +83,4 @@ export default {
   },
 } satisfies ExportedHandler<Env>;
 
-export { HitCounter } from './HitCounter';
+export { HitCounter } from "./HitCounter";
