@@ -1,5 +1,6 @@
 // @ts-ignore
 import * as ReactServerDom from "react-server-dom-webpack/server.edge";
+import * as ReactServer from "react-dom/server";
 import Page from "./app/page";
 import React from "react";
 import dedent from "dedent";
@@ -12,6 +13,13 @@ const assetManifest = JSON.parse(manifestJSON);
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
+
+    function getRootElement() {
+      return React.createElement(Page, {
+        env,
+      });
+    }
+
     switch (url.pathname) {
       case "/render": {
         const clientAssets = Object.fromEntries(
@@ -28,12 +36,9 @@ export default {
             ]),
         );
 
-        const Component = React.createElement(Page, {
-          env,
-        });
-
+        const component = getRootElement();
         const stream = ReactServerDom.renderToReadableStream(
-          Component,
+          component,
           clientAssets,
         );
         return new Response(stream, {
@@ -48,12 +53,15 @@ export default {
       }
 
       case "/": {
+        const component = getRootElement();
+        const body = ReactServer.renderToString(component);
+
         return new Response(
           dedent`
             <!DOCTYPE html>
 	        <html>
 	        <body>
-	          <div id="root"></div>
+	          <div id="root">${body}</div>
 	          <script type="module" src="/client.js"></script>
 	        </body>
 	        </html>

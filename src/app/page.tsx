@@ -10,15 +10,13 @@ async function PageContents({ env }: { env: Env }) {
   return (
     <div>
       Global Count: {count}
-
       <br />
-
       Local Component: <Like />
     </div>
   );
 }
 
-export default async function Page({ env }: { env: Env }) {
+export default function Page({ env }: { env: Env }) {
   return (
     <>
       <h1>Page Title</h1>
