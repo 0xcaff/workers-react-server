@@ -3,6 +3,12 @@
 Demo of using React Server Components and Server Side Rendering inside
 Cloudflare Workers.
 
+## running
+
+```
+$ yarn run dev
+```
+
 ## why
 
 Maybe you'd like to use React Server Components without attaching yourself to a
