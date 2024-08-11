@@ -21,8 +21,8 @@ application shell. This will stop at the first suspense boundary, returning the
 fallback. This decision of how much to render into the initial shell has many
 choices. Tweak this based on what you want for your application.
 
-Following renders are handled using react server components. On the server a
-stream is initialized with `react-server-dom-webpack/client`'s
+Following client renders are handled using react server components. On the
+server a stream is initialized with `react-server-dom-webpack/client`'s
 `renderToReadableStream` and on the client, asynchronously hydrated with
 `createFromFetch`.
 
@@ -37,6 +37,8 @@ endpoint (`/render` in this application) and replaces the root component. I
 didn't implement it here because though server actions are convenient, they
 don't seem to handle authentication and the scope capture rules seem easy to get
 wrong.
+
+I'd recommend implementing this in the application layer.
 
 ## under the hood
 
@@ -71,7 +73,7 @@ render will run
 https://github.com/0xcaff/workers-react-server/blob/20f4bef9356df59e3305b04fe0a54a8e2f152cb5/src/worker.ts#L16-L48
 
 and the tree will be populated as the tree streams down with any client modules
-becoming imported and hydrated
+being imported and mounted
 
 https://github.com/0xcaff/workers-react-server/blob/20f4bef9356df59e3305b04fe0a54a8e2f152cb5/src/client.ts#L12
 
